@@ -1,0 +1,308 @@
+\documentclass[authoryear,preprint,review,12pt]{elsarticle}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{url}
+
+% Code listing style
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  language=R,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{red}
+}
+
+\journal{SoftwareX}
+
+\begin{document}
+
+\begin{frontmatter}
+
+\title{crossover-edtech-toolkit: An Open-Source Platform for Replicable\\
+Crossover Experimental Studies Evaluating Generative AI in Education}
+
+\author[uex]{Juan Antonio Torrecilla Pinero\corref{cor}}
+\ead{jatorrecilla@unex.es}
+\cortext[cor]{Corresponding author}
+
+\author[uex]{Second Author}
+
+\author[uex]{Third Author}
+
+\address[uex]{Universidad de Extremadura, Badajoz, Spain}
+
+\begin{abstract}
+Evaluating the impact of generative artificial intelligence (AI) on learning outcomes
+requires rigorous experimental designs that control for individual differences among
+students. This paper presents \texttt{crossover-edtech-toolkit}, an open-source
+software platform that provides a complete framework for conducting AB/BA crossover
+experimental studies in higher education. The toolkit comprises three integrated
+components: (1) a web-based data collection application built on Firebase for
+administering pre-tests, challenge tasks, perception surveys, and post-tests;
+(2) a set of validated instruments including rubrics and Likert-scale questionnaires
+with demonstrated psychometric properties; and (3) a modular R analysis pipeline
+implementing the full statistical workflow for crossover designs, from data cleaning
+through mixed ANOVA, linear mixed models, carryover tests, and publication-quality
+visualizations. The platform is designed for replicability across disciplines and
+institutions, with comprehensive documentation for instrument adaptation and study
+deployment. We demonstrate the toolkit's capabilities using a synthetic dataset
+simulating 100 students in a 2$\times$2 crossover design and report effect sizes,
+model diagnostics, and carryover analysis results. The software is released under
+the MIT license and is available on GitHub.
+\end{abstract}
+
+\begin{keyword}
+crossover design \sep educational technology \sep generative AI \sep
+higher education \sep open-source software \sep experimental methodology
+\end{keyword}
+
+\end{frontmatter}
+
+% ==============================================================================
+\section{Motivation and significance}
+\label{sec:motivation}
+% ==============================================================================
+
+The rapid adoption of generative AI tools (e.g., ChatGPT, GitHub Copilot, Gemini)
+in higher education has created an urgent need for rigorous empirical evidence
+about their effects on learning outcomes \citep{kasneci2023chatgpt}. While numerous
+studies have explored student and instructor perceptions of AI tools, far fewer
+have employed experimental designs capable of establishing causal claims
+\citep{crompton2023ai}.
+
+A key challenge in educational experiments is the large variability between students
+in terms of prior knowledge, motivation, and ability. Traditional parallel-group
+designs (treatment vs.\ control) require large sample sizes to achieve adequate
+statistical power. The \textbf{crossover design}, widely used in clinical trials
+\citep{senn2002crossover}, addresses this by having each participant experience
+both conditions: with AI and without AI. This within-subject comparison eliminates
+between-subject variability, yielding greater statistical power with smaller
+samples.
+
+Despite these advantages, crossover designs remain underutilized in educational
+research, partly because there is no standardized, freely available toolkit for
+implementing them. Researchers must build data collection platforms, design
+instruments, and write analysis code from scratch, leading to methodological
+inconsistencies and limited replicability.
+
+\texttt{crossover-edtech-toolkit} addresses this gap by providing a complete,
+open-source platform that can be adopted by any institution or discipline.
+The toolkit lowers the barrier to conducting high-quality crossover experiments
+and promotes open science practices in educational technology research.
+
+% ==============================================================================
+\section{Software description}
+\label{sec:description}
+% ==============================================================================
+
+\subsection{Software architecture}
+
+The toolkit follows a modular architecture with three loosely coupled components
+(Figure~\ref{fig:architecture}):
+
+\begin{enumerate}
+    \item \textbf{Data collection webapp}: A Firebase-hosted web application
+    that guides participants through the study protocol (pre-test, challenge
+    tasks, post-challenge surveys, post-test). The app handles randomization,
+    timing, and secure data storage in Cloud Firestore.
+
+    \item \textbf{Validated instruments}: A set of questionnaires, rubrics,
+    and knowledge tests with documented psychometric properties, designed
+    to be adaptable to different disciplines and languages.
+
+    \item \textbf{R analysis pipeline}: Ten modular R scripts that implement
+    the complete statistical analysis for a 2$\times$2 crossover design,
+    from data import through publication-ready visualizations.
+\end{enumerate}
+
+% Placeholder for architecture figure
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.9\textwidth]{architecture.pdf}
+% \caption{Software architecture of the crossover-edtech-toolkit.}
+% \label{fig:architecture}
+% \end{figure}
+
+\subsection{Software functionalities}
+
+\subsubsection{Data collection}
+
+The Firebase webapp implements the following workflow:
+
+\begin{enumerate}
+    \item Participant registration and informed consent
+    \item Random assignment to sequence AB or BA
+    \item Pre-test knowledge assessment
+    \item Period 1 challenge task (condition determined by sequence)
+    \item Post-challenge perception survey
+    \item Period 2 challenge task (alternate condition)
+    \item Post-challenge perception survey
+    \item Post-test knowledge assessment
+\end{enumerate}
+
+\subsubsection{Statistical analysis pipeline}
+
+The R analysis pipeline implements the standard analysis strategy for
+crossover designs \citep{jones2014crossover}:
+
+\begin{itemize}
+    \item \textbf{00\_setup.R}: Package management and configuration
+    \item \textbf{01\_data\_import\_clean.R}: Data validation, missing data
+    handling, derived variables
+    \item \textbf{02\_descriptive\_stats.R}: Summary statistics by condition,
+    period, and sequence
+    \item \textbf{03\_instrument\_validation.R}: Cronbach's $\alpha$,
+    V de Aiken, ICC
+    \item \textbf{04\_paired\_comparisons.R}: Paired $t$-tests and Wilcoxon
+    signed-rank tests
+    \item \textbf{05\_mixed\_anova.R}: Mixed ANOVA and linear mixed models
+    (LMM): $Y \sim \text{treatment} + \text{period} + \text{sequence} +
+    (1|\text{participant})$
+    \item \textbf{06\_effect\_sizes.R}: Cohen's $d$, Hedges' $g$, partial
+    $\eta^2$ with confidence intervals
+    \item \textbf{07\_carryover\_analysis.R}: Grizzle's test for carryover
+    effects
+    \item \textbf{08\_perception\_analysis.R}: Likert scale analysis with
+    diverging stacked bar charts
+    \item \textbf{09\_visualizations.R}: Interaction plots, spaghetti plots,
+    forest plots, composite figures
+\end{itemize}
+
+The linear mixed model follows the standard crossover parameterization:
+\begin{equation}
+    Y_{ijk} = \mu + \pi_j + \tau_k + \lambda_l + S_i + \varepsilon_{ijk}
+    \label{eq:model}
+\end{equation}
+where $\mu$ is the grand mean, $\pi_j$ is the period effect, $\tau_k$ is
+the treatment effect, $\lambda_l$ is the carryover effect, $S_i \sim
+\mathcal{N}(0, \sigma_S^2)$ is the random subject effect, and
+$\varepsilon_{ijk} \sim \mathcal{N}(0, \sigma^2)$ is the residual.
+
+% ==============================================================================
+\section{Illustrative examples}
+\label{sec:examples}
+% ==============================================================================
+
+To demonstrate the toolkit's capabilities, we generated a synthetic dataset
+of 100 students in a 2$\times$2 crossover design using the included
+\texttt{generate\_sample\_data.R} script. The data-generating parameters
+were: $\mu = 65$, $\tau = 5$ (AI advantage), $\pi = 3$ (period effect),
+$\lambda = 0$ (no carryover), $\sigma_S = 12$, $\sigma = 8$.
+
+Running the full pipeline with \texttt{source("analysis/R/run\_all.R")}
+produces:
+
+\begin{itemize}
+    \item Descriptive statistics tables showing mean scores by condition
+    and period
+    \item Paired $t$-test results confirming a significant treatment effect
+    \item LMM estimates consistent with the data-generating parameters
+    \item Cohen's $d$ for the treatment effect with 95\% confidence interval
+    \item Non-significant carryover test (as expected from the simulation)
+    \item Publication-ready figures including interaction plots and forest
+    plots
+\end{itemize}
+
+% Placeholder for example figures
+% \begin{figure}[htbp]
+% \centering
+% \includegraphics[width=0.8\textwidth]{interaction_plot.pdf}
+% \caption{Interaction plot showing mean scores by sequence and period.}
+% \label{fig:interaction}
+% \end{figure}
+
+% ==============================================================================
+\section{Impact}
+\label{sec:impact}
+% ==============================================================================
+
+The \texttt{crossover-edtech-toolkit} has the potential to impact educational
+research in several ways:
+
+\begin{enumerate}
+    \item \textbf{Methodological improvement}: By providing a ready-to-use
+    crossover framework, the toolkit encourages researchers to use
+    within-subject designs that yield more precise estimates of treatment
+    effects than parallel-group designs.
+
+    \item \textbf{Replicability}: The standardized instruments, data format,
+    and analysis pipeline enable direct replication across institutions and
+    disciplines, addressing the replication crisis in educational research.
+
+    \item \textbf{Open science}: All components are open-source (MIT license),
+    promoting transparency and enabling the research community to inspect,
+    modify, and improve the methodology.
+
+    \item \textbf{Accessibility}: The comprehensive documentation lowers the
+    barrier for researchers without deep expertise in crossover designs or
+    mixed-effects modeling.
+
+    \item \textbf{Evidence base for AI policy}: As institutions develop policies
+    on AI use in education, this toolkit provides a rigorous methodology for
+    generating the empirical evidence needed to inform those decisions.
+\end{enumerate}
+
+% ==============================================================================
+\section{Conclusions}
+\label{sec:conclusions}
+% ==============================================================================
+
+We have presented \texttt{crossover-edtech-toolkit}, an open-source platform
+for conducting crossover experimental studies evaluating generative AI in
+higher education. The toolkit integrates data collection, validated instruments,
+and statistical analysis into a coherent, reusable framework. By making rigorous
+experimental methodology accessible and standardized, we aim to contribute to
+a growing body of high-quality evidence on the educational impact of AI tools.
+
+Future development will include support for more complex crossover designs
+(e.g., higher-order, replicated), Bayesian analysis alternatives, and
+integration with additional data collection platforms.
+
+% ==============================================================================
+% Required metadata for SoftwareX
+% ==============================================================================
+
+\section*{Current code version}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{ll}
+\toprule
+\textbf{Code metadata} & \\
+\midrule
+Current code version & v0.1.0 \\
+Permanent link to code/repository & \url{https://github.com/your-org/crossover-edtech-toolkit} \\
+Permanent link to reproducible capsule & \\
+Legal code license & MIT \\
+Code versioning system used & Git \\
+Software code languages & R, JavaScript, HTML/CSS \\
+Compilation requirements & R >= 4.2.0, Node.js >= 18 \\
+Developer documentation/manual & \url{https://github.com/your-org/crossover-edtech-toolkit/docs} \\
+Support email for questions & jatorrecilla@unex.es \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% ==============================================================================
+\section*{Acknowledgements}
+% ==============================================================================
+
+This work was supported by a Teaching Innovation Project at the Universidad
+de Extremadura. The authors thank the students who participated in the
+pilot study and the colleagues who provided feedback on the instruments.
+
+% ==============================================================================
+\bibliographystyle{elsarticle-harv}
+\bibliography{references}
+
+\end{document}
