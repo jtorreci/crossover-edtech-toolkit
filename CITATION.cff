@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+title: "crossover-edtech-toolkit"
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: "Torrecilla Pinero"
+    given-names: "Juan Antonio"
+    affiliation: "Universidad de Extremadura"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+  - family-names: "Author"
+    given-names: "Second"
+    affiliation: "Universidad de Extremadura"
+  - family-names: "Author"
+    given-names: "Third"
+    affiliation: "Universidad de Extremadura"
+repository-code: "https://github.com/your-org/crossover-edtech-toolkit"
+url: "https://github.com/your-org/crossover-edtech-toolkit"
+abstract: >-
+  An open-source platform for conducting replicable crossover (AB/BA)
+  experimental studies in higher education, with a focus on evaluating
+  the impact of generative AI on learning outcomes. Includes a web-based
+  data collection application, validated instruments, a modular R analysis
+  pipeline, and comprehensive documentation.
+keywords:
+  - crossover design
+  - educational technology
+  - generative AI
+  - higher education
+  - experimental design
+  - open science
+  - learning analytics
+license: MIT
+version: 0.1.0
+date-released: "2026-01-01"
+doi: "10.xxxx/xxxxx"
