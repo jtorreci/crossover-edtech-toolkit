@@ -194,7 +194,7 @@ If you use this toolkit in your research, please cite:
 @article{torrecilla2026crossover,
   title   = {crossover-edtech-toolkit: An Open-Source Platform for Replicable
              Crossover Experimental Studies Evaluating Generative {AI} in Education},
-  author  = {Torrecilla Pinero, Juan Antonio and others},
+  author  = {Torrecilla-Pinero, Jes{\'u}s {\'A}ngel and others},
   journal = {SoftwareX},
   year    = {2026},
   doi     = {10.xxxx/xxxxx}
