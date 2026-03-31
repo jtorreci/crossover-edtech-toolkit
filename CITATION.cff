@@ -4,7 +4,7 @@ message: "If you use this software, please cite it as below."
 type: software
 authors:
   - family-names: "Torrecilla Pinero"
-    given-names: "Juan Antonio"
+    given-names: "Jesús Ángel"
     affiliation: "Universidad de Extremadura"
     orcid: "https://orcid.org/0000-0000-0000-0000"
   - family-names: "Author"

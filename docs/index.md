@@ -66,7 +66,7 @@ The toolkit generates publication-ready results in under 60 seconds:
 @article{torrecilla2026crossover,
   title   = {crossover-edtech-toolkit: An Open-Source Platform for Replicable
              Crossover Experimental Studies Evaluating Generative AI in Education},
-  author  = {Torrecilla Pinero, Juan Antonio and others},
+  author  = {Torrecilla Pinero, Jesús Ángel and others},
   journal = {SoftwareX},
   year    = {2026}
 }
