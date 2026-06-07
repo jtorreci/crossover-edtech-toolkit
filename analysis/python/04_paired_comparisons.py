@@ -30,6 +30,13 @@ df_wide = pd.read_parquet(OUTPUT_DIR / "df_wide.parquet")
 df_clean["condition"] = pd.Categorical(df_clean["condition"], categories=["noAI", "AI"])
 df_wide["sequence"] = pd.Categorical(df_wide["sequence"], categories=["AB", "BA"])
 
+# Paired tests require complete cases (both conditions scored for the same
+# participant). With incomplete data, dropping NaNs per-column independently
+# would mis-align the two vectors, so we restrict to participants who have
+# BOTH score_AI and score_noAI.
+df_pair = df_wide.dropna(subset=["score_AI", "score_noAI"]).copy()
+print(f"  Complete score pairs (both conditions): {len(df_pair)} of {len(df_wide)} participants.")
+
 # ---------------------------------------------------------------------------
 # 1. Check normality of differences
 # ---------------------------------------------------------------------------
@@ -64,13 +71,13 @@ print("\n--- Paired t-test: Score (AI vs noAI) ---")
 
 # Use pingouin for rich output (CI, Cohen's d, BF)
 t_result = pg.ttest(
-    df_wide["score_AI"],
-    df_wide["score_noAI"],
+    df_pair["score_AI"],
+    df_pair["score_noAI"],
     paired=True,
     confidence=0.95,
 )
 
-mean_diff = df_wide["score_diff"].mean()
+mean_diff = df_pair["score_diff"].mean()
 ci_low = t_result["CI95"].values[0][0]
 ci_high = t_result["CI95"].values[0][1]
 t_stat = t_result["T"].values[0]
@@ -117,15 +124,15 @@ else:
 print("\n--- Wilcoxon signed-rank test: Score ---")
 
 wilcox = pg.wilcoxon(
-    df_wide["score_AI"],
-    df_wide["score_noAI"],
+    df_pair["score_AI"],
+    df_pair["score_noAI"],
     alternative="two-sided",
 )
 
 # Also get scipy result for the pseudomedian / CI
 w_stat_scipy, w_p_scipy = stats.wilcoxon(
-    df_wide["score_AI"].dropna(),
-    df_wide["score_noAI"].dropna(),
+    df_pair["score_AI"],
+    df_pair["score_noAI"],
     alternative="two-sided",
 )
 
@@ -140,7 +147,7 @@ print(f"  RBC (rank-biserial correlation) = {wilcox['RBC'].values[0]:.3f}")
 print("\n--- Paired comparisons by sequence ---")
 
 for seq_level in ["AB", "BA"]:
-    df_seq = df_wide[df_wide["sequence"] == seq_level]
+    df_seq = df_pair[df_pair["sequence"] == seq_level]
     if len(df_seq) >= 5:
         t_seq = pg.ttest(df_seq["score_AI"], df_seq["score_noAI"], paired=True)
         seq_diff = (df_seq["score_AI"] - df_seq["score_noAI"]).mean()
@@ -171,7 +178,7 @@ results_rows = [
     {
         "Outcome": "Score",
         "Test": "Wilcoxon signed-rank",
-        "n": len(df_wide),
+        "n": len(df_pair),
         "Estimate": round(mean_diff, 3),
         "CI_lower": np.nan,
         "CI_upper": np.nan,

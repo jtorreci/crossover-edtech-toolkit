@@ -78,9 +78,13 @@ def interpret_d(d_val: float) -> str:
 
 print("\n--- Cohen's d (paired) ---")
 
+# Paired effect sizes use complete cases only (both conditions scored), so the
+# two vectors stay aligned by participant.
+df_pair = df_wide.dropna(subset=["score_AI", "score_noAI"]).copy()
+
 d_score = cohens_d_paired(
-    df_wide["score_AI"].dropna().values,
-    df_wide["score_noAI"].dropna().values,
+    df_pair["score_AI"].values,
+    df_pair["score_noAI"].values,
 )
 
 print(f"  Score (AI vs noAI):")
@@ -88,7 +92,7 @@ print(f"    Cohen's d = {d_score['d']:.3f}  [{d_score['CI_lower']:.3f}, {d_score
 
 # Also use pingouin for cross-validation
 d_pg = pg.compute_effsize(
-    df_wide["score_AI"], df_wide["score_noAI"], paired=True, eftype="cohen"
+    df_pair["score_AI"], df_pair["score_noAI"], paired=True, eftype="cohen"
 )
 print(f"    (pingouin check: d = {d_pg:.3f})")
 

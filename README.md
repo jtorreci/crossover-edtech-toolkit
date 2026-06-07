@@ -36,7 +36,7 @@ where `mu` is the grand mean, `pi_j` is the period effect, `tau_k` is the treatm
 | **Validated instruments** | Rubrics, Likert-scale questionnaires, and knowledge tests adaptable to any discipline |
 | **R analysis pipeline** | 10 modular scripts covering descriptive statistics, instrument validation, mixed ANOVA, carryover tests, effect sizes, and publication-quality visualizations |
 | **Python analysis pipeline** | Parallel set of 10 scripts plus a Jupyter notebook, using pandas, scipy, pingouin, statsmodels, and matplotlib/seaborn to replicate every R analysis |
-| **Sample data generator** | Synthetic dataset simulating 100 students in a 2x2 crossover, with configurable effect sizes (available in both R and Python) |
+| **Sample data generator** | Synthetic dataset simulating 100 students in a 2x2 crossover, plus a scenario-validation workflow for testing the pipeline under multiple classroom patterns |
 | **Comprehensive documentation** | Study design guide, deployment instructions, instrument adaptation manual, ethical considerations template |
 
 ## Quick Start
@@ -75,6 +75,16 @@ The toolkit provides **two equivalent analysis pipelines**. Choose whichever lan
    ```
 
 5. **Explore outputs** in the `output/` directory (created automatically).
+
+### Scenario-based synthetic validation
+
+If you want to test whether the pipeline distinguishes treatment, period, sequence, carryover, and high-heterogeneity cases correctly, run the synthetic scenario suite:
+
+```bash
+python sample_data/generate_scenario_validation.py
+```
+
+This generates six synthetic classroom populations, runs the full Python pipeline on each one, and produces comparison panels under `sample_data/scenario_validation/panels/`. These outputs are intended for workflow validation, not for reporting substantive educational findings.
 
 ### Option B: Python Pipeline
 
@@ -129,7 +139,7 @@ Both pipelines mirror each other script-by-script:
 
 The Python pipeline additionally includes `full_analysis.ipynb`, a Jupyter notebook that combines all steps in an interactive, narrative format.
 
-For detailed instructions, see [docs/analysis_guide.md](docs/analysis_guide.md).
+For detailed instructions, see the documentation site in `docs/`, especially the [Synthetic Validation reference](docs/reference/synthetic-validation.md).
 
 ## Directory Structure
 
@@ -181,6 +191,8 @@ crossover-edtech-toolkit/
 ├── sample_data/                 # Synthetic data for testing
 │   ├── generate_sample_data.R
 │   ├── generate_sample_data.py
+│   ├── generate_scenario_validation.py
+│   ├── build_scenario_panels.py
 │   └── data_dictionary.md
 └── tests/                       # Automated tests
     └── test_analysis_pipeline.R
@@ -194,7 +206,7 @@ If you use this toolkit in your research, please cite:
 @article{torrecilla2026crossover,
   title   = {crossover-edtech-toolkit: An Open-Source Platform for Replicable
              Crossover Experimental Studies Evaluating Generative {AI} in Education},
-  author  = {Torrecilla-Pinero, Jes{\'u}s {\'A}ngel and others},
+  author  = {Torrecilla-Pinero, Jes{\'u}s A. and others},
   journal = {SoftwareX},
   year    = {2026},
   doi     = {10.xxxx/xxxxx}
@@ -215,6 +227,10 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 ## Acknowledgements
 
 Developed at the **Universidad de Extremadura** as part of a Teaching Innovation Project focused on evaluating the impact of generative artificial intelligence on learning outcomes in higher education.
+
+## Authorship and AI assistance
+
+Author and maintainer: **Jesús A. Torrecilla-Pinero** (Universidad de Extremadura). Generative AI (Claude, Anthropic) was used to assist with code development, statistical analysis, and documentation. All design decisions, review, and responsibility for the content rest with the author.
 
 ---
 

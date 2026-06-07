@@ -18,6 +18,7 @@ import pandas as pd
 import pingouin as pg
 from scipy import stats
 import statsmodels.formula.api as smf
+from numpy.linalg import LinAlgError  # noqa: F401  (used by exception handlers)
 
 print("=== 05_mixed_anova.py: Mixed ANOVA and linear mixed models ===")
 
@@ -162,12 +163,29 @@ fe_table.to_csv(TABLES_DIR / "lmm_fixed_effects.csv", index=False)
 print("\n--- Extended model with interaction ---")
 print("  Model: score ~ condition * period + sequence + (1 | participant_id)")
 
-lmm_interaction = smf.mixedlm(
-    "score ~ cond_num * period_num + seq_num",
-    data=df_lmm,
-    groups=df_lmm["participant_id"],
-).fit(reml=True)
+# In a balanced 2x2 crossover the condition x period interaction is
+# informationally identical to sequence (condition is determined by sequence
+# x period). The full interaction model is therefore rank-deficient.
+# Strategy: try the full specification; if it fails, refit without the
+# redundant sequence term so the carryover-style interaction test still runs.
+def _fit_interaction(formula: str):
+    return smf.mixedlm(formula, data=df_lmm,
+                       groups=df_lmm["participant_id"]).fit(reml=True)
 
+formula_full = "score ~ cond_num * period_num + seq_num"
+formula_reduced = "score ~ cond_num * period_num"
+
+try:
+    lmm_interaction = _fit_interaction(formula_full)
+    interaction_formula = formula_full
+except np.linalg.LinAlgError:
+    print("  Full interaction model is singular (cond:period is collinear "
+          "with sequence in a balanced 2x2 crossover).")
+    print("  Refitting without seq_num.")
+    lmm_interaction = _fit_interaction(formula_reduced)
+    interaction_formula = formula_reduced
+
+print(f"\n  Fitted: {interaction_formula}")
 print("\n  Model summary:")
 print(lmm_interaction.summary())
 

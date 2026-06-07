@@ -7,7 +7,7 @@ nav_order: 3
 # Step 3: Understanding the Sample Data
 {: .no_toc }
 
-Learn how the synthetic dataset is generated, what each variable represents, and how to substitute your own data.
+Learn how the default synthetic dataset is generated, what each variable represents, and how to substitute your own data.
 {: .fs-6 .fw-300 }
 
 ## Table of contents
@@ -17,6 +17,12 @@ Learn how the synthetic dataset is generated, what each variable represents, and
 {:toc}
 
 ---
+
+## The default synthetic dataset
+
+This tutorial page focuses on the **default sample dataset**, which is a single worked example used for onboarding and smoke-testing the pipeline.
+
+The toolkit also includes a separate **scenario-based synthetic validation** workflow that generates multiple classroom populations and checks whether the pipeline identifies the right pattern in each case. That workflow is documented in [Synthetic Validation](../reference/synthetic-validation).
 
 ## Generating the sample data
 
@@ -84,7 +90,7 @@ The data generator uses the following parameters to simulate realistic crossover
 | Subject SD | sigma_subj | 12 | Between-subject standard deviation (individual differences) |
 | Residual SD | sigma_resid | 8 | Within-subject residual standard deviation |
 
-Setting `lambda = 0` means the generator produces data with no carryover effect, which is the ideal scenario for a crossover trial. If you want to explore what happens when carryover is present, change `lambda` to a non-zero value (e.g., 3 or 5) and re-run the generator. The carryover analysis script (`07_carryover_analysis.R`) should then detect it.
+Setting `lambda = 0` means the generator produces data with no carryover effect, which is the ideal scenario for a crossover trial. If you want to explore a richer set of edge cases such as explicit carryover, strong period effects, or highly heterogeneous cohorts, use the scenario-validation workflow instead of editing the default example by hand.
 {: .tip }
 
 ## Missing data

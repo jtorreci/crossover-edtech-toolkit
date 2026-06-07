@@ -1,0 +1,255 @@
+% ============================================================================
+% Architecture diagram - crossover-edtech-toolkit
+% Compile standalone: pdflatex architecture.tex
+% Or include in paper via \input{architecture} (with tikz packages loaded)
+% ============================================================================
+\documentclass[border=10pt]{standalone}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows.meta, positioning, fit, calc, shadows.blur}
+
+\definecolor{webapp}{HTML}{2196F3}
+\definecolor{webapplight}{HTML}{E3F2FD}
+\definecolor{instruments}{HTML}{4CAF50}
+\definecolor{instrumentslight}{HTML}{E8F5E9}
+\definecolor{analysisR}{HTML}{FF9800}
+\definecolor{analysisRlight}{HTML}{FFF3E0}
+\definecolor{analysisPy}{HTML}{F44336}
+\definecolor{analysisPylight}{HTML}{FFEBEE}
+\definecolor{output}{HTML}{9C27B0}
+\definecolor{outputlight}{HTML}{F3E5F5}
+\definecolor{sampledata}{HTML}{607D8B}
+\definecolor{sampledatalight}{HTML}{ECEFF1}
+\definecolor{docs}{HTML}{795548}
+\definecolor{docslight}{HTML}{EFEBE9}
+\definecolor{arrowcol}{HTML}{455A64}
+\definecolor{bgcol}{HTML}{FAFAFA}
+
+\begin{document}
+
+\begin{tikzpicture}[
+    % Node styles
+    component/.style={
+        rectangle,
+        rounded corners=6pt,
+        minimum width=4.2cm,
+        minimum height=1.2cm,
+        text width=3.8cm,
+        align=center,
+        font=\sffamily\small,
+        blur shadow={shadow blur steps=5, shadow xshift=0.5pt, shadow yshift=-0.5pt}
+    },
+    subitem/.style={
+        font=\sffamily\scriptsize,
+        text=black!70,
+        align=left,
+        text width=3.6cm
+    },
+    header/.style={
+        font=\sffamily\bfseries\small,
+        text=white
+    },
+    outputbox/.style={
+        rectangle,
+        rounded corners=4pt,
+        minimum width=2.5cm,
+        minimum height=0.8cm,
+        align=center,
+        font=\sffamily\scriptsize,
+        blur shadow={shadow blur steps=3, shadow xshift=0.3pt, shadow yshift=-0.3pt}
+    },
+    arrow/.style={
+        ->{Stealth[length=6pt, width=5pt]},
+        line width=1.2pt,
+        color=arrowcol
+    },
+    dashedarrow/.style={
+        ->{Stealth[length=5pt, width=4pt]},
+        line width=0.8pt,
+        color=arrowcol,
+        dashed
+    },
+    label/.style={
+        font=\sffamily\tiny,
+        color=arrowcol,
+        fill=white,
+        inner sep=1pt
+    }
+]
+
+% ============================================================
+% Title
+% ============================================================
+\node[font=\sffamily\bfseries\large, color=black!80] at (5.5, 8.8)
+    {crossover-edtech-toolkit};
+\node[font=\sffamily\small, color=black!50] at (5.5, 8.3)
+    {Software Architecture};
+
+% ============================================================
+% TOP ROW: Input components
+% ============================================================
+
+% --- Webapp ---
+\node[component, fill=webapplight, draw=webapp, line width=1pt]
+    (webapp) at (0, 6.5) {};
+\node[header, fill=webapp, minimum width=4.2cm, rounded corners=3pt]
+    at (0, 7.15) {Web Application};
+\node[subitem, below=0.05cm of webapp.north] (webapp-items) {
+    Firebase Hosting + Firestore\\
+    Magic link authentication\\
+    Role-based access (3 roles)\\
+    SHA-256 anonymous coding\\
+    Conditional survey logic
+};
+
+% --- Instruments ---
+\node[component, fill=instrumentslight, draw=instruments, line width=1pt]
+    (instr) at (5.5, 6.5) {};
+\node[header, fill=instruments, minimum width=4.2cm, rounded corners=3pt]
+    at (5.5, 7.15) {Validated Instruments};
+\node[subitem, below=0.05cm of instr.north] {
+    Pre-test questionnaire\\
+    Post-challenge survey\\
+    Post-test questionnaire\\
+    Evaluation rubric (0--10)\\
+    LaTeX + DOCX formats
+};
+
+% --- Sample Data ---
+\node[component, fill=sampledatalight, draw=sampledata, line width=1pt]
+    (sample) at (11, 6.5) {};
+\node[header, fill=sampledata, minimum width=4.2cm, rounded corners=3pt]
+    at (11, 7.15) {Sample Data Generator};
+\node[subitem, below=0.05cm of sample.north] {
+    Synthetic 2$\times$2 crossover\\
+    Configurable parameters:\\
+    \quad $\mu$, $\tau$, $\pi$, $\lambda$, $\sigma_S$, $\sigma$\\
+    R + Python versions\\
+    Data dictionary included
+};
+
+% ============================================================
+% MIDDLE ROW: Analysis pipelines
+% ============================================================
+
+% --- R Pipeline ---
+\node[component, fill=analysisRlight, draw=analysisR, line width=1pt,
+      minimum width=5cm, text width=4.6cm]
+    (rpipe) at (2.5, 3.0) {};
+\node[header, fill=analysisR, minimum width=5cm, rounded corners=3pt]
+    at (2.5, 3.8) {R Analysis Pipeline};
+\node[subitem, below=0.05cm of rpipe.north, text width=4.6cm] {
+    10 modular scripts (00--09)\\
+    lme4, emmeans, effectsize\\
+    Cronbach's $\alpha$, Aiken's $V$, ICC\\
+    Mixed ANOVA + LMM\\
+    Grizzle's carryover test\\
+    Master: \texttt{run\_all.R}
+};
+
+% --- Python Pipeline ---
+\node[component, fill=analysisPylight, draw=analysisPy, line width=1pt,
+      minimum width=5cm, text width=4.6cm]
+    (pypipe) at (8.5, 3.0) {};
+\node[header, fill=analysisPy, minimum width=5cm, rounded corners=3pt]
+    at (8.5, 3.8) {Python Analysis Pipeline};
+\node[subitem, below=0.05cm of pypipe.north, text width=4.6cm] {
+    10 modular scripts (00--09)\\
+    pingouin, statsmodels, scipy\\
+    pandas, seaborn, matplotlib\\
+    Jupyter notebook included\\
+    Identical statistical results\\
+    Master: \texttt{run\_all.py}
+};
+
+% ============================================================
+% BOTTOM ROW: Outputs
+% ============================================================
+
+% --- Output container ---
+\node[component, fill=outputlight, draw=output, line width=1.2pt,
+      minimum width=11.5cm, minimum height=2.2cm, text width=11cm]
+    (outputbox) at (5.5, -0.3) {};
+\node[header, fill=output, minimum width=11.5cm, rounded corners=3pt]
+    at (5.5, 0.65) {Output};
+
+% Output sub-items
+\node[outputbox, fill=white, draw=output!60, minimum width=2.6cm]
+    (tables) at (2.0, -0.2) {\textbf{15 Tables}\\(CSV)};
+\node[outputbox, fill=white, draw=output!60, minimum width=2.6cm]
+    (figures) at (5.0, -0.2) {\textbf{15 Figures}\\(PDF + PNG)};
+\node[outputbox, fill=white, draw=output!60, minimum width=2.6cm]
+    (models) at (8.0, -0.2) {\textbf{Fitted Models}\\(RDS)};
+\node[outputbox, fill=white, draw=output!60, minimum width=2.0cm]
+    (log) at (10.3, -0.2) {\textbf{Pipeline Log}\\(CSV)};
+
+% Sub-labels
+\node[font=\sffamily\tiny, color=black!50, below=0.15cm of tables, align=center]
+    {ANOVA, LMM, effects,\\Cronbach, Aiken\ldots};
+\node[font=\sffamily\tiny, color=black!50, below=0.15cm of figures, align=center]
+    {interaction, forest,\\spaghetti, Likert\ldots};
+\node[font=\sffamily\tiny, color=black!50, below=0.15cm of models, align=center]
+    {lmm\_main,\\lmm\_interaction};
+\node[font=\sffamily\tiny, color=black!50, below=0.15cm of log, align=center]
+    {timestamps,\\versions};
+
+% ============================================================
+% Documentation (side)
+% ============================================================
+\node[component, fill=docslight, draw=docs, line width=1pt,
+      minimum width=3cm, text width=2.6cm, minimum height=3.5cm]
+    (docbox) at (14, 3.0) {};
+\node[header, fill=docs, minimum width=3cm, rounded corners=3pt]
+    at (14, 4.85) {Documentation};
+\node[subitem, below=0.1cm of docbox.north, text width=2.5cm] {
+    Study design guide\\[2pt]
+    Analysis guide\\[2pt]
+    Deployment guide\\[2pt]
+    Instrument\\adaptation manual\\[2pt]
+    Ethics template\\[2pt]
+    Step-by-step\\tutorial (6 parts)
+};
+
+% ============================================================
+% ARROWS
+% ============================================================
+
+% Webapp -> Pipelines
+\draw[arrow] (webapp.south) -- ++(0, -0.6) -| (rpipe.north);
+\node[label] at ($(webapp.south)!0.5!(rpipe.north west) + (0.4, -0.2)$) {CSV/JSON};
+
+\draw[dashedarrow] (webapp.south) -- ++(0, -0.6) -| (pypipe.north west);
+
+% Instruments -> Pipelines (validation)
+\draw[arrow] (instr.south) -- ($(rpipe.north)!0.5!(pypipe.north)$);
+\node[label] at ($(instr.south) + (0, -0.45)$) {validation data};
+
+% Sample data -> Pipelines
+\draw[arrow] (sample.south) -- ++(0, -0.6) -| (pypipe.north);
+\node[label] at ($(sample.south)!0.5!(pypipe.north east) + (-0.4, -0.2)$) {synthetic data};
+
+\draw[dashedarrow] (sample.south) -- ++(0, -0.6) -| (rpipe.north east);
+
+% Pipelines -> Output
+\draw[arrow, color=analysisR] (rpipe.south) -- ++(0, -0.5) -| ($(outputbox.north) + (-2, 0)$);
+\draw[arrow, color=analysisPy] (pypipe.south) -- ++(0, -0.5) -| ($(outputbox.north) + (2, 0)$);
+
+% Docs -> side connections (gentle curves)
+\draw[dashedarrow] (docbox.west) -- ++(-0.5, 0) |- ($(pypipe.east) + (0, 0.5)$);
+\draw[dashedarrow] (docbox.north west) |- ($(sample.east) + (0, -0.2)$);
+
+% ============================================================
+% Protocol flow (top annotation)
+% ============================================================
+\node[font=\sffamily\tiny, color=black!40, text width=12cm, align=center]
+    at (5.5, -1.8) {
+    Study protocol flow: Pre-test $\rightarrow$ Randomization (AB/BA)
+    $\rightarrow$ Period 1 $\rightarrow$ Washout $\rightarrow$ Period 2
+    $\rightarrow$ Post-test $\rightarrow$ Analysis $\rightarrow$ Publication
+};
+
+\end{tikzpicture}
+
+\end{document}

@@ -5,10 +5,10 @@ nav_order: 5
 layout: default
 ---
 
-# Ethical Considerations and Ethics Committee Submission
+# Ethical Considerations, Data Protection, and Ethics Review Where Applicable
 {: .no_toc }
 
-Key ethical principles, an IRB/CEIC application template, and an informed consent form template for crossover studies evaluating AI tools in higher education.
+Key ethical principles, personal data protection guidance, and an informed consent template for crossover studies evaluating AI tools in higher education, with ethics-review guidance where local rules require it.
 {: .fs-6 .fw-300 }
 
 ## Table of contents
@@ -21,9 +21,12 @@ Key ethical principles, an IRB/CEIC application template, and an informed consen
 
 ## Overview
 
-Research involving human participants in educational settings requires ethical review and approval. This document provides a template for ethics committee (IRB/CEIC) submissions and outlines key considerations for crossover studies evaluating AI tools in higher education.
+Research involving human participants in educational settings always requires an ethical design and clear personal data protection measures. Whether it also requires formal review by an institutional ethics committee depends on local regulation, institutional policy, and the nature of the study.
 
-Ethics approval must be obtained before any data collection begins. Retroactive approval is not possible, and data collected without prior approval cannot be used in publications.
+For teaching innovation projects that do not involve biomedical procedures, clinical intervention, or sensitive health data, a full IRB/CEIC submission may not be required. In those cases, researchers should still document informed consent, voluntariness, data minimization, pseudonymization, purpose limitation, storage security, and compliance with the applicable data protection framework.
+{: .note }
+
+If your institution or funder does require ethics review, obtain that approval before any data collection begins. Retroactive approval is generally not possible.
 {: .warning }
 
 ## Key Ethical Principles
@@ -38,7 +41,7 @@ All participants must provide informed consent before enrollment. The consent fo
 - What data will be collected and how it will be stored
 - That participation is voluntary and withdrawal is possible at any time without penalty
 - That the study will not affect their course grade (or how it will, if applicable)
-- Contact information for the research team and the ethics committee
+- Contact information for the research team and, where applicable, the relevant institutional oversight body
 
 Consent must be freely given. When the researcher is also the course instructor, take extra care to ensure students do not feel coerced. Consider having a third party collect consent forms so the instructor does not know who participated until after final grades are posted.
 {: .tip }
@@ -89,7 +92,7 @@ Debriefing is both an ethical obligation and a pedagogical opportunity. Students
 
 ## Template: Ethics Committee Application
 
-The template below can be adapted for your institutional ethics review board (IRB, CEIC, or equivalent). Replace all bracketed placeholders with your study-specific details.
+The template below is only needed when your institution requires formal ethics review for this kind of study. Replace bracketed placeholders with your study-specific details.
 {: .note }
 
 ### Study Title
@@ -201,11 +204,11 @@ Yes. You may withdraw at any time without any academic penalty. If you withdraw,
 Your responses will be stored with an anonymous code, not your name. Only the research team will have access to the data. Results will be published in aggregate form only.
 
 **Questions?**
-Contact [researcher name] at [email] or the ethics committee at [contact].
+Contact [researcher name] at [email] and, if applicable, the institutional ethics office at [contact].
 
 [ ] I have read and understood the above information. I voluntarily agree to participate.
 
 Name: _________________ Signature: _________________ Date: _________________
 
-This template is a starting point. Your institution's ethics committee may require additional sections (e.g., data sharing agreements, specific GDPR clauses, minor consent procedures). Always check your local requirements before submission.
+This template is a starting point for institutions that require formal review. In contexts where no committee submission is required, the same underlying safeguards still apply: informed consent, voluntariness, fair treatment of students, proportional data collection, secure storage, and compliance with GDPR or the equivalent legal framework.
 {: .note }

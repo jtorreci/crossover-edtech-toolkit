@@ -7,7 +7,7 @@ nav_order: 5
 # Step 5: Interpreting Your Results
 {: .no_toc }
 
-A detailed walkthrough of every output produced by the pipeline, using the sample data as a worked example. This is the most important page of the tutorial -- it teaches you how to read, evaluate, and report your findings.
+A detailed walkthrough of every output produced by the pipeline, using the default sample data as a worked example. This is the most important page of the tutorial -- it teaches you how to read, evaluate, and report your findings.
 {: .fs-6 .fw-300 }
 
 ## Table of contents
@@ -17,6 +17,9 @@ A detailed walkthrough of every output produced by the pipeline, using the sampl
 {:toc}
 
 ---
+
+The numerical values shown on this page come from the **default synthetic example**, not from a real classroom deployment. If you want to see how the same outputs behave under multiple programmed patterns such as carryover, strong period effects, or highly heterogeneous cohorts, see [Synthetic Validation](../reference/synthetic-validation).
+{: .note }
 
 ## 1. Descriptive statistics
 

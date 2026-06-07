@@ -2,8 +2,11 @@
 03_instrument_validation.py
 Purpose: Validate data collection instruments using:
          - Cronbach's alpha for internal consistency of Likert scales
+         - Cronbach's alpha for internal consistency of rubric items
+           (replaces inter-rater ICC when only one evaluator scores each work)
          - V de Aiken for content validity (from expert ratings)
-         - ICC for inter-rater reliability of rubric scores
+         - ICC for inter-rater reliability of rubric scores (only when
+           multiple-rater data is provided)
          - Item-total correlations
 Input:   df_clean from 01
 Output:  Validation metrics saved to output/tables/
@@ -30,6 +33,10 @@ df_clean = pd.read_parquet(OUTPUT_DIR / "df_clean.parquet")
 print("\n--- Cronbach's Alpha (Internal Consistency) ---")
 
 likert_cols = [c for c in df_clean.columns if c.startswith("likert_")]
+
+# Drop columns that are entirely missing (e.g. instruments not collected in
+# the current study) before requiring complete cases.
+likert_cols = [c for c in likert_cols if df_clean[c].notna().any()]
 
 if len(likert_cols) >= 2:
     # Extract Likert data with complete cases
@@ -88,6 +95,57 @@ if len(likert_cols) >= 2:
     alpha_drop.to_csv(TABLES_DIR / "cronbach_alpha_if_dropped.csv", index=False)
 else:
     print("  Fewer than 2 Likert columns found. Skipping Cronbach's alpha.")
+
+# ---------------------------------------------------------------------------
+# 1b. Cronbach's Alpha for Rubric Items (intra-instrument consistency)
+# ---------------------------------------------------------------------------
+#
+# In single-rater designs (one evaluator per work) inter-rater reliability is
+# not estimable from the data alone. Internal consistency of the rubric items
+# remains a valid psychometric question: do the dimensions of the rubric
+# behave as a coherent construct when applied to the same work?
+
+print("\n--- Cronbach's Alpha for rubric items ---")
+
+rubric_cols = [c for c in df_clean.columns if c.startswith("rubric_")
+               and c not in ("rubric_score",)]
+rubric_cols = [c for c in rubric_cols if df_clean[c].notna().any()]
+
+if len(rubric_cols) >= 2:
+    rubric_data = df_clean[rubric_cols].dropna()
+    print(f"  Analyzing {len(rubric_cols)} rubric items from "
+          f"{len(rubric_data)} complete observations.")
+
+    if len(rubric_data) >= 2:
+        alpha_val, ci = pg.cronbach_alpha(rubric_data)
+        print(f"  Cronbach's alpha (rubric): {alpha_val:.3f}  "
+              f"95% CI: [{ci[0]:.3f}, {ci[1]:.3f}]")
+
+        item_rows = []
+        for col in rubric_cols:
+            rest_cols = [c for c in rubric_cols if c != col]
+            total_rest = rubric_data[rest_cols].sum(axis=1)
+            r_drop, _ = stats.pearsonr(rubric_data[col], total_rest)
+            total_all = rubric_data[rubric_cols].sum(axis=1)
+            r_cor, _ = stats.pearsonr(rubric_data[col], total_all)
+            if len(rest_cols) >= 2:
+                a_drop, _ = pg.cronbach_alpha(rubric_data[rest_cols])
+            else:
+                a_drop = float("nan")
+            item_rows.append({
+                "item": col,
+                "r_corrected": round(r_cor, 3),
+                "r_drop": round(r_drop, 3),
+                "alpha_if_dropped": round(a_drop, 3),
+            })
+        rubric_stats = pd.DataFrame(item_rows)
+        print("\n  Rubric item-total correlations and alpha-if-dropped:")
+        print(rubric_stats.to_string(index=False))
+        rubric_stats.to_csv(TABLES_DIR / "cronbach_rubric_items.csv", index=False)
+    else:
+        print("  Fewer than 2 complete rubric observations.")
+else:
+    print("  Fewer than 2 rubric_* columns present. Skipping rubric Cronbach.")
 
 # ---------------------------------------------------------------------------
 # 2. V de Aiken for Content Validity
@@ -188,7 +246,16 @@ print("\n--- ICC (Inter-Rater Reliability) ---")
 
 rater_file = DATA_DIR / "rater_scores.csv"
 
-if rater_file.exists():
+# Single-rater design: skip ICC entirely. In studies where each work is graded
+# by exactly one evaluator (e.g. one instructor per subject) inter-rater
+# reliability is not estimable from the data and reporting simulated values is
+# misleading. The intra-instrument Cronbach above (section 1b) is the
+# psychometric quantity that does apply.
+if not rater_file.exists():
+    print("  No rater_scores.csv found.")
+    print("  Single-rater design: ICC not applicable. See section 1b for "
+          "intra-rubric Cronbach's alpha.")
+elif rater_file.exists():
     rater_data = pd.read_csv(rater_file)
     rater_cols = [c for c in rater_data.columns if c.startswith("rater_")]
 
@@ -223,33 +290,5 @@ if rater_file.exists():
     else:
         interp = "Poor agreement"
     print(f"  Interpretation: {interp}.")
-else:
-    print("  No rater_scores.csv found. Demonstrating with simulated data.")
-
-    rng2 = np.random.default_rng(123)
-    true_scores = rng2.normal(7, 1.5, 30)
-    sim_rater = pd.DataFrame({
-        "participant_id": [f"S{i:02d}" for i in range(1, 31)],
-        "rater_1": np.clip(np.round(true_scores + rng2.normal(0, 0.5, 30), 1), 0, 10),
-        "rater_2": np.clip(np.round(true_scores + rng2.normal(0, 0.6, 30), 1), 0, 10),
-    })
-
-    rater_long = sim_rater.melt(
-        id_vars=["participant_id"],
-        value_vars=["rater_1", "rater_2"],
-        var_name="rater",
-        value_name="rating",
-    )
-
-    icc_result = pg.intraclass_corr(
-        data=rater_long,
-        targets="participant_id",
-        raters="rater",
-        ratings="rating",
-    )
-    icc2_row = icc_result[icc_result["Type"] == "ICC(A,1)"].iloc[0]
-    print(f"  Simulated ICC(2,1) = {icc2_row['ICC']:.3f}")
-    ci = icc2_row["CI95"]
-    print(f"  95% CI: [{ci[0]:.3f}, {ci[1]:.3f}]")
 
 print("\n=== 03_instrument_validation.py: Complete ===\n")

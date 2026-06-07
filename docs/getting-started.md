@@ -52,6 +52,14 @@ python sample_data/generate_sample_data.py
 
 This creates `sample_data/crossover_sample_data.csv` with 200 rows (100 participants x 2 periods).
 
+If you want a stronger workflow check, the repo also includes a **scenario-based validation suite** that generates several synthetic classroom populations and runs the full pipeline on each one:
+
+```bash
+python sample_data/generate_scenario_validation.py
+```
+
+That workflow is intended to test whether the toolkit correctly distinguishes treatment effects, period effects, carryover, and high heterogeneity under known conditions. It is documented in [Synthetic Validation](reference/synthetic-validation).
+
 ## 3. Run the full pipeline
 
 **R** (from the project root):

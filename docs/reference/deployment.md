@@ -146,7 +146,7 @@ Before collecting real data:
 - [ ] Check that randomization assigns participants to sequences correctly
 - [ ] Test on multiple devices and browsers
 - [ ] Switch Firestore to production security rules
-- [ ] Obtain ethics committee approval
+- [ ] Check whether formal ethics committee approval is required in your institution for this type of educational study
 - [ ] Prepare informed consent form (see [Ethical Considerations](ethics))
 
 Complete every item on this checklist before opening the study to real participants. A single missed step (e.g., forgetting to switch to production security rules) can compromise your entire dataset.

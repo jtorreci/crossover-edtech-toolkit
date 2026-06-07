@@ -122,8 +122,10 @@ LIKERT_COLORS = {
 _this_dir = Path(__file__).resolve().parent  # analysis/python/
 PROJECT_ROOT = _this_dir.parent.parent       # crossover-edtech-toolkit/
 
-DATA_DIR = PROJECT_ROOT / "sample_data"
-OUTPUT_DIR = PROJECT_ROOT / "output"
+# Allow scenario runners to override input/output locations without patching
+# the analysis scripts themselves.
+DATA_DIR = Path(os.environ.get("CROSSOVER_TOOLKIT_DATA_DIR", PROJECT_ROOT / "sample_data"))
+OUTPUT_DIR = Path(os.environ.get("CROSSOVER_TOOLKIT_OUTPUT_DIR", PROJECT_ROOT / "output"))
 TABLES_DIR = OUTPUT_DIR / "tables"
 FIGURES_DIR = OUTPUT_DIR / "figures"
 MODELS_DIR = OUTPUT_DIR / "models"

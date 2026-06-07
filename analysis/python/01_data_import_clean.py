@@ -171,16 +171,17 @@ df_period_sums = (
 # 7. Outlier detection (IQR method within each condition)
 # ---------------------------------------------------------------------------
 
-def flag_outliers(group: pd.DataFrame) -> pd.DataFrame:
-    q1 = group["score"].quantile(0.25)
-    q3 = group["score"].quantile(0.75)
-    iqr = q3 - q1
-    group["is_outlier"] = (group["score"] < (q1 - 1.5 * iqr)) | (
-        group["score"] > (q3 + 1.5 * iqr)
-    )
-    return group
+df["is_outlier"] = False
 
-df = df.groupby("condition", group_keys=False, observed=True).apply(flag_outliers)
+for cond in df["condition"].dropna().unique():
+    mask = df["condition"] == cond
+    scores = df.loc[mask, "score"]
+    q1 = scores.quantile(0.25)
+    q3 = scores.quantile(0.75)
+    iqr = q3 - q1
+    df.loc[mask, "is_outlier"] = (scores < (q1 - 1.5 * iqr)) | (
+        scores > (q3 + 1.5 * iqr)
+    )
 
 n_outliers = df["is_outlier"].sum()
 print(f"  Flagged {n_outliers} potential outliers (IQR method).")

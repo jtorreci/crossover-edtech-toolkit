@@ -40,8 +40,12 @@ df_wide["sequence"] = pd.Categorical(df_wide["sequence"], categories=["AB", "BA"
 
 print("  Generating interaction plot...")
 
+# Aggregate by sequence x period only. In a clean crossover each (sequence,
+# period) cell maps to a single condition, but a few mislabeled records can put
+# both conditions in the same cell; collapsing here keeps exactly one mean per
+# period per sequence so the line plots have matching x/y lengths.
 cell_stats = (
-    df_clean.groupby(["sequence", "period", "condition"], observed=True)
+    df_clean.groupby(["sequence", "period"], observed=True)
     .agg(mean_score=("score", "mean"), se_score=("score", "sem"), n=("score", "size"))
     .reset_index()
 )

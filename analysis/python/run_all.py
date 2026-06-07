@@ -34,6 +34,7 @@ SCRIPTS = [
     "07_carryover_analysis.py",
     "08_perception_analysis.py",
     "09_visualizations.py",
+    "10_post_survey.py",
 ]
 
 # ---------------------------------------------------------------------------

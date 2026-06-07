@@ -123,3 +123,12 @@ data/processed/
 *.xlsx
 *.sav
 *.dta
+
+# ============================================
+# Real study data and outputs (NEVER commit -- student privacy)
+# ============================================
+real_data/
+real_output/
+real_output_prev_*/
+crossover_sample_data_prev_*.csv
+*.tmp.*

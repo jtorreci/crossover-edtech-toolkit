@@ -1,35 +1,30 @@
 cff-version: 1.2.0
-title: "crossover-edtech-toolkit"
-message: "If you use this software, please cite it as below."
+message: "If you use this software, please cite it using the metadata below."
+title: "crossover-edtech-toolkit: An Open-Source Toolkit for Replicable Crossover Studies in Education"
 type: software
 authors:
-  - family-names: "Torrecilla Pinero"
-    given-names: "Jesús Ángel"
+  - family-names: "Torrecilla-Pinero"
+    given-names: "Jesús A."
     affiliation: "Universidad de Extremadura"
-    orcid: "https://orcid.org/0000-0000-0000-0000"
-  - family-names: "Author"
-    given-names: "Second"
-    affiliation: "Universidad de Extremadura"
-  - family-names: "Author"
-    given-names: "Third"
-    affiliation: "Universidad de Extremadura"
-repository-code: "https://github.com/your-org/crossover-edtech-toolkit"
-url: "https://github.com/your-org/crossover-edtech-toolkit"
+    # orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"  # add ORCID here
+  # - add remaining GIDIC co-authors here (family-names / given-names / affiliation)
 abstract: >-
   An open-source platform for conducting replicable crossover (AB/BA)
   experimental studies in higher education, with a focus on evaluating
   the impact of generative AI on learning outcomes. Includes a web-based
-  data collection application, validated instruments, a modular R analysis
-  pipeline, and comprehensive documentation.
+  data collection application, validated instruments, R and Python analysis
+  pipelines, a Monte Carlo simulation engine, and documentation.
 keywords:
   - crossover design
   - educational technology
   - generative AI
   - higher education
   - experimental design
-  - open science
-  - learning analytics
+  - Monte Carlo simulation
+  - reproducibility
 license: MIT
-version: 0.1.0
-date-released: "2026-01-01"
-doi: "10.xxxx/xxxxx"
+version: "1.0.0"
+date-released: "2026-06-07"
+repository-code: "https://github.com/jtorreci/crossover-edtech-toolkit"
+url: "https://github.com/jtorreci/crossover-edtech-toolkit"
+# doi: assigned automatically by Zenodo upon release

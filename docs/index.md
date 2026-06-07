@@ -23,7 +23,7 @@ A complete research toolkit that provides everything you need to run a **crossov
 | **Web application** | Firebase-based platform for data collection with conditional logic, anonymous tracking, and rubric evaluation |
 | **Validated instruments** | Pre/post questionnaires, Likert surveys, evaluation rubrics -- all editable and adaptable |
 | **Analysis pipelines** | Complete statistical analysis in both **R** and **Python** (10 modular scripts each) |
-| **Sample data** | Synthetic dataset generator for testing and learning before real data collection |
+| **Sample data** | One default synthetic dataset for onboarding, plus scenario-based synthetic validation to stress-test the pipeline |
 | **Documentation** | Study design guide, instrument adaptation manual, ethics template, deployment instructions |
 
 ## The crossover design
@@ -52,6 +52,22 @@ The toolkit generates publication-ready results in under 60 seconds:
 ![Composite figure](assets/figures/composite_figure.png)
 
 *Composite figure showing interaction plot, individual trajectories, effect size forest plot, and score distributions -- generated automatically from sample data.*
+
+## Scenario-based validation
+
+The toolkit also supports a second synthetic workflow: instead of running a single demo dataset, you can generate several **plausible classroom populations** and verify that the pipeline identifies the correct pattern in each one.
+
+This is useful when you want to test questions such as:
+
+- Does the carryover diagnostic activate when carryover is built into the data?
+- Does a strong period effect show up as a period effect rather than being misread as treatment?
+- Do effect-size panels widen when the cohort is intentionally heterogeneous?
+
+The current scenario suite includes AI-naive students, digitally expert students, highly heterogeneous cohorts, and other classroom profiles chosen to stress-test interpretation rather than to mimic any one empirical study. See [Synthetic Validation](reference/synthetic-validation) for details.
+
+![Scenario validation panel](assets/figures/interaction_plots_by_synthetic_population.png)
+
+*Interaction plots across six synthetic classroom populations used to test whether the reporting layer distinguishes treatment, period, sequence, and heterogeneity patterns correctly.*
 
 ## Who is this for?
 
