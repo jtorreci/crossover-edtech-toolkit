@@ -27,4 +27,7 @@ version: "1.0.0"
 date-released: "2026-06-07"
 repository-code: "https://github.com/jtorreci/crossover-edtech-toolkit"
 url: "https://jtorreci.github.io/crossover-edtech-toolkit/"
-# doi: assigned automatically by Zenodo upon release
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.20580044"
+    description: "Zenodo DOI"

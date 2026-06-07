@@ -1,0 +1,22 @@
+{
+  "title": "crossover-edtech-toolkit: An Open-Source Toolkit for Replicable Crossover Studies in Education",
+  "description": "An open-source platform for replicable crossover (AB/BA) experimental studies in higher education, focused on evaluating the impact of generative AI on learning outcomes. Includes web-based data collection, validated instruments, R and Python analysis pipelines, a Monte Carlo simulation engine, and documentation.",
+  "upload_type": "software",
+  "license": "MIT",
+  "version": "1.0.0",
+  "creators": [
+    {
+      "name": "Torrecilla-Pinero, Jesús A.",
+      "affiliation": "Universidad de Extremadura",
+      "orcid": "0000-0001-9406-1100"
+    }
+  ],
+  "keywords": [
+    "crossover design",
+    "generative AI",
+    "educational technology",
+    "Monte Carlo simulation",
+    "reproducibility",
+    "carryover"
+  ]
+}

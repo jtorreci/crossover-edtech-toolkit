@@ -3,7 +3,7 @@
 **Open-Source Platform for Replicable Crossover Experimental Studies in Education**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![DOI](https://img.shields.io/badge/DOI-10.xxxx%2Fxxxxx-blue.svg)](https://doi.org/10.xxxx/xxxxx)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20580044.svg)](https://doi.org/10.5281/zenodo.20580044)
 
 ---
 
@@ -203,13 +203,15 @@ crossover-edtech-toolkit/
 If you use this toolkit in your research, please cite:
 
 ```bibtex
-@article{torrecilla2026crossover,
-  title   = {crossover-edtech-toolkit: An Open-Source Platform for Replicable
-             Crossover Experimental Studies Evaluating Generative {AI} in Education},
-  author  = {Torrecilla-Pinero, Jes{\'u}s A. and others},
-  journal = {SoftwareX},
-  year    = {2026},
-  doi     = {10.xxxx/xxxxx}
+@software{crossover_toolkit,
+  title     = {crossover-edtech-toolkit: An Open-Source Toolkit for Replicable
+               Crossover Studies in Education},
+  author    = {Torrecilla-Pinero, Jes{\'u}s A. and others},
+  year      = {2026},
+  publisher = {Zenodo},
+  version   = {1.0.0},
+  doi       = {10.5281/zenodo.20580044},
+  url       = {https://doi.org/10.5281/zenodo.20580044}
 }
 ```
 
