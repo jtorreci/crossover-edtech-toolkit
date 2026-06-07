@@ -5,11 +5,22 @@
   "license": "MIT",
   "version": "1.0.0",
   "creators": [
-    {
-      "name": "Torrecilla-Pinero, Jesús A.",
-      "affiliation": "Universidad de Extremadura",
-      "orcid": "0000-0001-9406-1100"
-    }
+    { "name": "Torrecilla-Pinero, Jesús A.", "affiliation": "Universidad de Extremadura", "orcid": "0000-0001-9406-1100" },
+    { "name": "Arévalo Caballero, María José", "affiliation": "Universidad de Extremadura" },
+    { "name": "Fernández Rodríguez, Santiago", "affiliation": "Universidad de Extremadura" },
+    { "name": "Arias Trujillo, Juana", "affiliation": "Universidad de Extremadura" },
+    { "name": "García García, Marta", "affiliation": "Universidad de Extremadura" },
+    { "name": "Candel Pérez, Miguel", "affiliation": "Universidad de Extremadura" },
+    { "name": "Jiménez Espada, Montaña", "affiliation": "Universidad de Extremadura" },
+    { "name": "López-Coca Martín, Ignacio", "affiliation": "Universidad de Extremadura" },
+    { "name": "Coloma Miró, Juan Francisco", "affiliation": "Universidad de Extremadura" },
+    { "name": "Matías Sánchez, Agustín", "affiliation": "Universidad de Extremadura" },
+    { "name": "Cortés Pérez, Juan Pedro", "affiliation": "Universidad de Extremadura" },
+    { "name": "Núñez Fernández, Mario", "affiliation": "Universidad de Extremadura" },
+    { "name": "Durán Barroso, Pablo", "affiliation": "Universidad de Extremadura" },
+    { "name": "Ollero Álvarez, Francisco Javier", "affiliation": "Universidad de Extremadura" },
+    { "name": "Plaza Caballero, Pablo", "affiliation": "Universidad de Extremadura" },
+    { "name": "Ceballos Martínez, José María", "affiliation": "Universidad de Extremadura" }
   ],
   "keywords": [
     "crossover design",

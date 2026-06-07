@@ -230,9 +230,15 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 
 Developed at the **Universidad de Extremadura** as part of a Teaching Innovation Project focused on evaluating the impact of generative artificial intelligence on learning outcomes in higher education.
 
-## Authorship and AI assistance
+## Authors and AI assistance
 
-Author and maintainer: **Jesús A. Torrecilla-Pinero** (Universidad de Extremadura). Generative AI (Claude, Anthropic) was used to assist with code development, statistical analysis, and documentation. All design decisions, review, and responsibility for the content rest with the author.
+Developed by the **Grupo de Innovación Docente en Ingeniería Civil (GIDIC)**, Universidad de Extremadura:
+
+Jesús A. Torrecilla-Pinero; María José Arévalo Caballero; Santiago Fernández Rodríguez; Juana Arias Trujillo; Marta García García; Miguel Candel Pérez; Montaña Jiménez Espada; Ignacio López-Coca Martín; Juan Francisco Coloma Miró; Agustín Matías Sánchez; Juan Pedro Cortés Pérez; Mario Núñez Fernández; Pablo Durán Barroso; Francisco Javier Ollero Álvarez; Pablo Plaza Caballero; José María Ceballos Martínez.
+
+Corresponding author and maintainer: **Jesús A. Torrecilla-Pinero** (jtorreci@unex.es).
+
+Generative AI (Claude, Anthropic) was used to assist with code development, statistical analysis, and documentation. All design decisions, review, and responsibility for the content rest with the authors.
 
 ---
 
