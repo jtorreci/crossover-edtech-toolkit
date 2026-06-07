@@ -29,5 +29,8 @@ repository-code: "https://github.com/jtorreci/crossover-edtech-toolkit"
 url: "https://jtorreci.github.io/crossover-edtech-toolkit/"
 identifiers:
   - type: doi
+    value: "10.5281/zenodo.20580043"
+    description: "Concept DOI (all versions)"
+  - type: doi
     value: "10.5281/zenodo.20580044"
-    description: "Zenodo DOI"
+    description: "Version DOI (v1.0.0)"

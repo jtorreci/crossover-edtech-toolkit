@@ -3,7 +3,7 @@
 **Open-Source Platform for Replicable Crossover Experimental Studies in Education**
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20580044.svg)](https://doi.org/10.5281/zenodo.20580044)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20580043.svg)](https://doi.org/10.5281/zenodo.20580043)
 
 ---
 
@@ -210,8 +210,8 @@ If you use this toolkit in your research, please cite:
   year      = {2026},
   publisher = {Zenodo},
   version   = {1.0.0},
-  doi       = {10.5281/zenodo.20580044},
-  url       = {https://doi.org/10.5281/zenodo.20580044}
+  doi       = {10.5281/zenodo.20580043},
+  url       = {https://doi.org/10.5281/zenodo.20580043}
 }
 ```
 
