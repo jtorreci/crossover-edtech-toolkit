@@ -6,7 +6,7 @@ authors:
   - family-names: "Torrecilla-Pinero"
     given-names: "Jesús A."
     affiliation: "Universidad de Extremadura"
-    # orcid: "https://orcid.org/XXXX-XXXX-XXXX-XXXX"  # add ORCID here
+    orcid: "https://orcid.org/0000-0001-9406-1100"
   # - add remaining GIDIC co-authors here (family-names / given-names / affiliation)
 abstract: >-
   An open-source platform for conducting replicable crossover (AB/BA)
@@ -26,5 +26,5 @@ license: MIT
 version: "1.0.0"
 date-released: "2026-06-07"
 repository-code: "https://github.com/jtorreci/crossover-edtech-toolkit"
-url: "https://github.com/jtorreci/crossover-edtech-toolkit"
+url: "https://jtorreci.github.io/crossover-edtech-toolkit/"
 # doi: assigned automatically by Zenodo upon release
